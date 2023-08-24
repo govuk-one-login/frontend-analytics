@@ -1,0 +1,41 @@
+{# DCMAW accounts · UA GTM-TK92W68 · GA4 GTM-KD86CMZ #}
+{% set GAcode %}
+  window.DI.appInit({uaContainerId: 'GTM-TK92W68', analyticsCookieDomain: 'localhost', isGa4Enabled: 'true', ga4ContainerId: 'GTM-KD86CMZ'})
+{% endset %}
+
+{% extends "govuk/template.njk" %}
+{% from "govuk/components/inset-text/macro.njk" import govukInsetText %}
+
+{% set general = general.general %}
+
+{% block head %}
+  <link href="{{ assetsCdnDomain }}/assets/stylesheet/application.css" rel="stylesheet">
+{% endblock %}
+
+{% block pageTitle %}{{ pageContent.title }}{% endblock %}
+
+{% block bodyStart %}
+  {% include "global/cookie-banner.njk" %}
+{% endblock %}
+
+{% block content %}
+
+  <h1 class="govuk-heading-l">{{ pageContent.title }}</h1>
+  <p class="govuk-body">{{ pageContent.content }}</p>
+
+  {{ govukInsetText({
+    text: pageContent.componentText
+  }) }}
+
+{% endblock %}
+
+{% block bodyEnd %}
+  <script src="/assets/javascript/cookiesjs/cookies.js"></script>
+  <script src="/assets/javascript/analytics/cookieBanner.js"></script>
+  <script src="/assets/javascript/analytics/cookies.js"></script>
+  <script src="/assets/javascript/analytics/core.js"></script>
+  <script src="/assets/javascript/analytics/loadAnalytics.js"></script>
+  <script src="/assets/javascript/app/init.js"></script>
+  <script type="text/javascript">{{ GAcode | safe }}</script>
+{% endblock %}
+
