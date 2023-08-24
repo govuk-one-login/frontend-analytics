@@ -13,15 +13,15 @@ i18next
   .use(i18nextMiddleware.LanguageDetector)
   .init(
     i18nextConfigurationOptions(
-      path.join(__dirname, "locales/{{lng}}/{{ns}}.json")
-    )
+      path.join(__dirname, "locales/{{lng}}/{{ns}}.json"),
+    ),
   );
 
 // add nunjucks support and configure the views folders
 const nunjucks = require("nunjucks");
 nunjucks.configure(["./app/views", "node_modules/govuk-frontend/"], {
   autoescape: true,
-  express: app
+  express: app,
 });
 
 const port = 3000;
@@ -35,8 +35,7 @@ app.use("/assets", express.static("assets"));
 
 app.use(i18nextMiddleware.handle(i18next));
 app.get("/", (req, res) => {
-console.log(`Language is set to: ${req.i18n.language}`);
-
+  console.log(`Language is set to: ${req.i18n.language}`);
 
   // pass current language setting through to nunjucks template for HTML source code
   // e.g. <html lang="cy" class="govuk-template">
@@ -47,14 +46,16 @@ console.log(`Language is set to: ${req.i18n.language}`);
 
   // translate the cookie banner content and page content from the translation .json files
 
-  const cookieBannerContent = req.i18n.t("cookieBanner", { returnObjects: true });
+  const cookieBannerContent = req.i18n.t("cookieBanner", {
+    returnObjects: true,
+  });
   const pageContent = req.i18n.t("examplePage", { returnObjects: true });
 
   // output our single page
   let data = {
     layout: "index.njk",
     pageContent: pageContent,
-    general: cookieBannerContent
+    general: cookieBannerContent,
   };
   // a Design System component is rendered in the nunjucks page
   res.render("index.njk", data);

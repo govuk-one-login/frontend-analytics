@@ -1,5 +1,5 @@
 module.exports = {
-  i18nextConfigurationOptions: function(path) {
+  i18nextConfigurationOptions: function (path) {
     return {
       debug: false,
       fallbackLng: "en",
@@ -7,7 +7,7 @@ module.exports = {
       supportedLngs: ["en", "cy"],
       backend: {
         loadPath: path,
-        allowMultiLoading: true
+        allowMultiLoading: true,
       },
       detection: {
         lookupCookie: "lng",
@@ -17,8 +17,8 @@ module.exports = {
         ignoreCase: true,
         cookieSecure: true,
         cookieDomain: "", //getServiceDomain(),
-        cookieSameSite: ""
-      }
+        cookieSameSite: "",
+      },
     };
-  }
+  },
 };
