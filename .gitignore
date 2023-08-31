@@ -135,3 +135,4 @@ yarn.lock
 
 # built assets folder
 assets/
+!*/assets/
