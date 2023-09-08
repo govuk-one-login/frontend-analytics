@@ -1,0 +1,44 @@
+{
+  "name": "di-frontend-analytics",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "test:unit": "mocha -p --recursive \"test/**/**/*.test.ts\""
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphagov/di-frontend-analytics.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alphagov/di-frontend-analytics/issues"
+  },
+  "homepage": "https://github.com/alphagov/di-frontend-analytics#readme",
+  "devDependencies": {
+    "chai": "4.3.7",
+    "jsdom": "22.1.0",
+    "mocha": "10.2.0",
+    "sinon": "15.2.0",
+    "sinon-chai": "3.7.0",
+    "ts-node": "10.9.1",
+    "typescript": "5.1.6"
+  },
+  "mocha": {
+    "diff": true,
+    "extension": [
+      "js",
+      "ts"
+    ],
+    "timeout": 20000,
+    "recursive": true,
+    "require": [
+      "ts-node/register"
+    ],
+    "exit": true
+  }
+}
