@@ -8,11 +8,11 @@ window.DI = window.DI || {};
 // window.GOVUKFrontend.initAll();
 // ***********
 
-window.onload = function() {
+window.onload = function () {
   if (
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       // eslint-disable-next-line no-undef
-      navigator.userAgent
+      navigator.userAgent,
     )
   ) {
     setVoiceOverFocus();
@@ -24,7 +24,7 @@ function setVoiceOverFocus() {
   const focusTotalRepetitions = 10; // number of repetitions
   const mainContent = document.getElementsByTagName("main")["main-content"];
   const cookieBanner = document.getElementsByClassName(
-    "govuk-cookie-banner"
+    "govuk-cookie-banner",
   )[0];
   const mainElement =
     cookieBanner.style.display === "block" ? cookieBanner : mainContent;
@@ -33,7 +33,7 @@ function setVoiceOverFocus() {
   mainElement.blur();
 
   let focusRepetitions = 0;
-  const interval = window.setInterval(function() {
+  const interval = window.setInterval(function () {
     mainElement.focus();
 
     focusRepetitions++;
@@ -43,15 +43,15 @@ function setVoiceOverFocus() {
   }, focusInterval);
 }
 
-(function(DI) {
+(function (DI) {
   "use strict";
 
   function appInit({
-                     analyticsCookieDomain,
-                     uaContainerId,
-                     isGa4Enabled,
-                     ga4ContainerId
-                   }) {
+    analyticsCookieDomain,
+    uaContainerId,
+    isGa4Enabled,
+    ga4ContainerId,
+  }) {
     if (isGa4Enabled === true) {
       // New analytics implementation (UA and GA4)
       window.DI.cookieBannerInit(analyticsCookieDomain);
@@ -60,7 +60,7 @@ function setVoiceOverFocus() {
       // Existing analytics implementation (UA only)
       const cookies = window.GOVUKFrontend.Cookies(
         uaContainerId,
-        analyticsCookieDomain
+        analyticsCookieDomain,
       );
       if (cookies.hasConsentForAnalytics()) {
         cookies.initAnalytics();
