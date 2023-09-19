@@ -18,7 +18,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
       function (event) {
         event.preventDefault();
         setBannerCookieConsent(true);
-      }.bind(this)
+      }.bind(this),
     );
 
     rejectCookies.addEventListener(
@@ -26,7 +26,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
       function (event) {
         event.preventDefault();
         setBannerCookieConsent(false);
-      }.bind(this)
+      }.bind(this),
     );
 
     var hideButtons = Array.prototype.slice.call(hideCookieBanner);
@@ -36,7 +36,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
         function (event) {
           event.preventDefault();
           hideElement(cookieBannerContainer);
-        }.bind(this)
+        }.bind(this),
       );
     });
 
@@ -50,7 +50,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
     setCookie(
       COOKIES_PREFERENCES_SET,
       { analytics: analyticsConsent },
-      { days: 365 }
+      { days: 365 },
     );
 
     hideElement(cookieBanner);
@@ -65,7 +65,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
 
   function hasConsentForAnalytics() {
     var cookieConsent = JSON.parse(
-      decodeURIComponent(getCookie(COOKIES_PREFERENCES_SET))
+      decodeURIComponent(getCookie(COOKIES_PREFERENCES_SET)),
     );
     return cookieConsent ? cookieConsent.analytics : false;
   }
@@ -82,7 +82,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
     gtmScriptTag.setAttribute("async", "true");
     gtmScriptTag.setAttribute(
       "src",
-      "https://www.googletagmanager.com/gtm.js?id=" + trackingId
+      "https://www.googletagmanager.com/gtm.js?id=" + trackingId,
     );
     gtmScriptTag.setAttribute("crossorigin", "anonymous");
     document.documentElement.firstChild.appendChild(gtmScriptTag);
@@ -100,7 +100,7 @@ var cookies = function (trackingId, analyticsCookieDomain) {
 
     var sessionJourney = getJourneyMapping(window.location.pathname);
     var criJourney = criDataLayer(
-      gaDataElement ? gaDataElement.value : "undefined"
+      gaDataElement ? gaDataElement.value : "undefined",
     );
 
     function gtag(obj) {
@@ -210,15 +210,20 @@ var cookies = function (trackingId, analyticsCookieDomain) {
       options = {};
     }
 
-    var cookieString = name + '=' + encodeURIComponent(JSON.stringify(values));
+    var cookieString = name + "=" + encodeURIComponent(JSON.stringify(values));
     if (options.days) {
       var date = new Date();
       date.setTime(date.getTime() + options.days * 24 * 60 * 60 * 1000);
-      cookieString = cookieString + '; Expires=' + date.toUTCString() + '; Path=/; Domain=' + analyticsCookieDomain;
+      cookieString =
+        cookieString +
+        "; Expires=" +
+        date.toUTCString() +
+        "; Path=/; Domain=" +
+        analyticsCookieDomain;
     }
 
     if (document.location.protocol === "https:") {
-      cookieString = cookieString + '; Secure';
+      cookieString = cookieString + "; Secure";
     }
 
     document.cookie = cookieString;

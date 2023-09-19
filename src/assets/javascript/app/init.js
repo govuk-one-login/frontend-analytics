@@ -12,46 +12,49 @@ window.onload = function () {
   if (
     /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(
       // eslint-disable-next-line no-undef
-      navigator.userAgent
+      navigator.userAgent,
     )
   ) {
-    setVoiceOverFocus()
+    setVoiceOverFocus();
   }
-}
+};
 
 function setVoiceOverFocus() {
-  var focusInterval = 10 // ms, time between function calls
-  var focusTotalRepetitions = 10 // number of repetitions
-  var mainContent = document.getElementsByTagName("main")["main-content"]
-  var cookieBanner = document.getElementsByClassName('govuk-cookie-banner')[0]
-  var mainElement = cookieBanner.style.display === 'block' ? cookieBanner : mainContent
+  var focusInterval = 10; // ms, time between function calls
+  var focusTotalRepetitions = 10; // number of repetitions
+  var mainContent = document.getElementsByTagName("main")["main-content"];
+  var cookieBanner = document.getElementsByClassName("govuk-cookie-banner")[0];
+  var mainElement =
+    cookieBanner.style.display === "block" ? cookieBanner : mainContent;
 
-  mainElement.setAttribute("tabindex", "0")
-  mainElement.blur()
+  mainElement.setAttribute("tabindex", "0");
+  mainElement.blur();
 
-  var focusRepetitions = 0
+  var focusRepetitions = 0;
   var interval = window.setInterval(function () {
-    mainElement.focus()
+    mainElement.focus();
 
-    focusRepetitions++
+    focusRepetitions++;
     if (focusRepetitions >= focusTotalRepetitions) {
-      window.clearInterval(interval)
+      window.clearInterval(interval);
     }
-  }, focusInterval)
+  }, focusInterval);
 }
 
 (function (DI) {
-
-  'use strict'
+  "use strict";
 
   function appInit(config) {
-    if(config.isGa4Enabled === true) {
+    if (config.isGa4Enabled === true) {
       // New analytics implementation (UA and GA4)
-      window.DI.cookieBannerInit(config.analyticsCookieDomain)
-      window.DI.loadAnalytics(config.uaContainerId, config.ga4ContainerId)
+      window.DI.cookieBannerInit(config.analyticsCookieDomain);
+      window.DI.loadAnalytics(config.uaContainerId, config.ga4ContainerId);
     } else {
       // Existing analytics implementation (UA only)
-      var cookies = window.GOVUKFrontend.Cookies(config.uaContainerId, config.analyticsCookieDomain);
+      var cookies = window.GOVUKFrontend.Cookies(
+        config.uaContainerId,
+        config.analyticsCookieDomain,
+      );
       if (cookies.hasConsentForAnalytics()) {
         cookies.initAnalytics();
       }
