@@ -2,15 +2,15 @@
 
 "use strict";
 
-const cookies = function (trackingId, analyticsCookieDomain) {
-  const COOKIES_PREFERENCES_SET = "cookies_preferences_set";
-  const cookiesAccepted = document.querySelector("#cookies-accepted");
-  const cookiesRejected = document.querySelector("#cookies-rejected");
-  const hideCookieBanner = document.querySelectorAll(".cookie-hide-button");
-  const cookieBannerContainer = document.querySelector(".govuk-cookie-banner");
-  const cookieBanner = document.querySelector("#cookies-banner-main");
-  const acceptCookies = document.querySelector('button[name="cookiesAccept"]');
-  const rejectCookies = document.querySelector('button[name="cookiesReject"]');
+var cookies = function (trackingId, analyticsCookieDomain) {
+  var COOKIES_PREFERENCES_SET = "cookies_preferences_set";
+  var cookiesAccepted = document.querySelector("#cookies-accepted");
+  var cookiesRejected = document.querySelector("#cookies-rejected");
+  var hideCookieBanner = document.querySelectorAll(".cookie-hide-button");
+  var cookieBannerContainer = document.querySelector(".govuk-cookie-banner");
+  var cookieBanner = document.querySelector("#cookies-banner-main");
+  var acceptCookies = document.querySelector('button[name="cookiesAccept"]');
+  var rejectCookies = document.querySelector('button[name="cookiesReject"]');
 
   function cookieBannerInit() {
     acceptCookies.addEventListener(
@@ -18,7 +18,7 @@ const cookies = function (trackingId, analyticsCookieDomain) {
       function (event) {
         event.preventDefault();
         setBannerCookieConsent(true);
-      }.bind(this),
+      }.bind(this)
     );
 
     rejectCookies.addEventListener(
@@ -26,21 +26,21 @@ const cookies = function (trackingId, analyticsCookieDomain) {
       function (event) {
         event.preventDefault();
         setBannerCookieConsent(false);
-      }.bind(this),
+      }.bind(this)
     );
 
-    const hideButtons = Array.prototype.slice.call(hideCookieBanner);
+    var hideButtons = Array.prototype.slice.call(hideCookieBanner);
     hideButtons.forEach(function (element) {
       element.addEventListener(
         "click",
         function (event) {
           event.preventDefault();
           hideElement(cookieBannerContainer);
-        }.bind(this),
+        }.bind(this)
       );
     });
 
-    const hasCookiesPolicy = getCookie(COOKIES_PREFERENCES_SET);
+    var hasCookiesPolicy = getCookie(COOKIES_PREFERENCES_SET);
     if (!hasCookiesPolicy) {
       showElement(cookieBannerContainer);
     }
@@ -50,7 +50,7 @@ const cookies = function (trackingId, analyticsCookieDomain) {
     setCookie(
       COOKIES_PREFERENCES_SET,
       { analytics: analyticsConsent },
-      { days: 365 },
+      { days: 365 }
     );
 
     hideElement(cookieBanner);
@@ -64,8 +64,8 @@ const cookies = function (trackingId, analyticsCookieDomain) {
   }
 
   function hasConsentForAnalytics() {
-    const cookieConsent = JSON.parse(
-      decodeURIComponent(getCookie(COOKIES_PREFERENCES_SET)),
+    var cookieConsent = JSON.parse(
+      decodeURIComponent(getCookie(COOKIES_PREFERENCES_SET))
     );
     return cookieConsent ? cookieConsent.analytics : false;
   }
@@ -77,12 +77,12 @@ const cookies = function (trackingId, analyticsCookieDomain) {
   }
 
   function loadGtmScript() {
-    const gtmScriptTag = document.createElement("script");
+    var gtmScriptTag = document.createElement("script");
     gtmScriptTag.type = "text/javascript";
     gtmScriptTag.setAttribute("async", "true");
     gtmScriptTag.setAttribute(
       "src",
-      "https://www.googletagmanager.com/gtm.js?id=" + trackingId,
+      "https://www.googletagmanager.com/gtm.js?id=" + trackingId
     );
     gtmScriptTag.setAttribute("crossorigin", "anonymous");
     document.documentElement.firstChild.appendChild(gtmScriptTag);
@@ -96,11 +96,11 @@ const cookies = function (trackingId, analyticsCookieDomain) {
       },
     ];
 
-    const gaDataElement = document.getElementById("gaData");
+    var gaDataElement = document.getElementById("gaData");
 
-    const sessionJourney = getJourneyMapping(window.location.pathname);
-    const criJourney = criDataLayer(
-      gaDataElement ? gaDataElement.value : "undefined",
+    var sessionJourney = getJourneyMapping(window.location.pathname);
+    var criJourney = criDataLayer(
+      gaDataElement ? gaDataElement.value : "undefined"
     );
 
     function gtag(obj) {
@@ -119,30 +119,30 @@ const cookies = function (trackingId, analyticsCookieDomain) {
   }
 
   function initLinkerHandlers() {
-    const submitButton = document.querySelector('button[type="submit"]');
-    const pageForm = document.getElementById("form-tracking");
+    var submitButton = document.querySelector('button[type="submit"]');
+    var pageForm = document.getElementById("form-tracking");
 
     if (submitButton && pageForm) {
       submitButton.addEventListener("click", function () {
         if (window.ga && window.gaplugins) {
-          const tracker = ga.getAll()[0];
-          const linker = new window.gaplugins.Linker(tracker);
-          const destinationLink = linker.decorate(pageForm.action);
+          var tracker = ga.getAll()[0];
+          var linker = new window.gaplugins.Linker(tracker);
+          var destinationLink = linker.decorate(pageForm.action);
           pageForm.action = destinationLink;
         }
       });
     }
 
-    const trackLink = document.getElementById("track-link");
+    var trackLink = document.getElementById("track-link");
 
     if (trackLink) {
       trackLink.addEventListener("click", function (e) {
         e.preventDefault();
 
         if (window.ga && window.gaplugins) {
-          const tracker = ga.getAll()[0];
-          const linker = new window.gaplugins.Linker(tracker);
-          const destinationLink = linker.decorate(trackLink.href);
+          var tracker = ga.getAll()[0];
+          var linker = new window.gaplugins.Linker(tracker);
+          var destinationLink = linker.decorate(trackLink.href);
           window.location.href = destinationLink;
         } else {
           window.location.href = trackLink.href;
@@ -160,21 +160,21 @@ const cookies = function (trackingId, analyticsCookieDomain) {
     };
   }
 
-  function criDataLayer(criJourney = "undefined") {
+  function criDataLayer(criJourney) {
     // cri_journey is the only field to change at the moment
     // it is based off the docType cookie bound to a hidden element on specific pages, and so if that element isn't there, it will be 'undefined'. If it is there, the values will be boolean as a string
     return {
       event: "page_view",
       page: {
         cri_type: "document checking online",
-        cri_journey: criJourney,
+        cri_journey: criJourney !== undefined ? criJourney : "undefined",
         organisations: "DI",
       },
     };
   }
 
   function getJourneyMapping(url) {
-    const JOURNEY_DATA_LAYER_PATHS = {
+    var JOURNEY_DATA_LAYER_PATHS = {
       "/authorize": generateSessionJourney("authorize", "start"),
       "/callback": generateSessionJourney("authorize", "end"),
       "/finishBiometricCheck": generateSessionJourney("authorize", "end"),
@@ -191,10 +191,10 @@ const cookies = function (trackingId, analyticsCookieDomain) {
   }
 
   function getCookie(name) {
-    const nameEQ = name + "=";
-    const cookies = document.cookie.split(";");
-    for (let i = 0, len = cookies.length; i < len; i++) {
-      let cookie = cookies[i];
+    var nameEQ = name + "=";
+    var cookies = document.cookie.split(";");
+    for (var i = 0, len = cookies.length; i < len; i++) {
+      var cookie = cookies[i];
       while (cookie.charAt(0) === " ") {
         cookie = cookie.substring(1, cookie.length);
       }
@@ -210,15 +210,15 @@ const cookies = function (trackingId, analyticsCookieDomain) {
       options = {};
     }
 
-    let cookieString = `${name}=${encodeURIComponent(JSON.stringify(values))}`;
+    var cookieString = name + '=' + encodeURIComponent(JSON.stringify(values));
     if (options.days) {
-      const date = new Date();
+      var date = new Date();
       date.setTime(date.getTime() + options.days * 24 * 60 * 60 * 1000);
-      cookieString = `${cookieString}; Expires=${date.toUTCString()}; Path=/; Domain=${analyticsCookieDomain}`;
+      cookieString = cookieString + '; Expires=' + date.toUTCString() + '; Path=/; Domain=' + analyticsCookieDomain;
     }
 
     if (document.location.protocol === "https:") {
-      cookieString = `${cookieString}; Secure`;
+      cookieString = cookieString + '; Secure';
     }
 
     document.cookie = cookieString;
@@ -233,9 +233,9 @@ const cookies = function (trackingId, analyticsCookieDomain) {
   }
 
   return {
-    cookieBannerInit,
-    hasConsentForAnalytics,
-    initAnalytics,
+    cookieBannerInit: cookieBannerInit,
+    hasConsentForAnalytics: hasConsentForAnalytics,
+    initAnalytics: initAnalytics,
   };
 };
 
