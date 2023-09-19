@@ -1,95 +1,95 @@
 /* eslint-disable @typescript-eslint/ban-ts-comment */
 // @ts-nocheck
-import chaiModule, { expect } from 'chai';
+import chaiModule, { expect } from "chai";
 import sinon from "sinon";
 import sinonChai from "sinon-chai";
 
 chaiModule.use(sinonChai);
 
-describe('PageViewTracker', () => {
-
-  let expected
-  let mockSendData
+describe("PageViewTracker", () => {
+  let expected;
+  let mockSendData;
 
   beforeEach(async () => {
     global.window = {
       DI: {
         core: {
-          sendData: () => 'sent!'
+          sendData: () => "sent!",
         },
         cookies: {
-          getCookie: () => 'en'
-        }
-      }
-    }
-    mockSendData = sinon.stub(global.window.DI.core, 'sendData')
-    global.document = {
-      title: 'some-title',
-      location: {
-        href: '/href'
+          getCookie: () => "en",
+        },
       },
-      referrer: 'mockReferrer'
-    }
-    window.dataLayer = []
+    };
+    mockSendData = sinon.stub(global.window.DI.core, "sendData");
+    global.document = {
+      title: "some-title",
+      location: {
+        href: "/href",
+      },
+      referrer: "mockReferrer",
+    };
+    window.dataLayer = [];
 
     expected = {
-      event: 'page_view_ga4',
+      event: "page_view_ga4",
       page_view: {
-        language: 'en',
-        location: '/href',
-        organisations: '<OT1056>',
-        primary_publishing_organisation: 'government digital service - digital identity',
+        language: "en",
+        location: "/href",
+        organisations: "<OT1056>",
+        primary_publishing_organisation:
+          "government digital service - digital identity",
         status_code: 200,
-        title: 'some-title',
-        referrer: 'mockreferrer',
-        taxonomy_level1: 'document checking application',
-        taxonomy_level2: 'pre cri'
-      }
-    }
+        title: "some-title",
+        referrer: "mockreferrer",
+        taxonomy_level1: "document checking application",
+        taxonomy_level2: "pre cri",
+      },
+    };
 
-    require('../../../../../../src/assets/javascript/analytics/ga4/pageViewTracker')
+    require("../../../../../../src/assets/javascript/analytics/ga4/pageViewTracker");
   });
 
   afterEach(() => {
-    delete require.cache[require.resolve('../../../../../../src/assets/javascript/analytics/ga4/pageViewTracker')];
+    delete require.cache[
+      require.resolve(
+        "../../../../../../src/assets/javascript/analytics/ga4/pageViewTracker",
+      )
+    ];
   });
 
-  it('Returns a standard page view', function () {
+  it("Returns a standard page view", function () {
+    global.window.DI.analyticsGa4.trackers.PageViewTracker.init();
 
-    global.window.DI.analyticsGa4.trackers.PageViewTracker.init()
+    expect(mockSendData).to.have.been.calledWith(expected);
+  });
 
-    expect(mockSendData).to.have.been.calledWith(expected)
-  })
+  it("Sets the language to the value of the lng cookie if set", function () {
+    global.window.DI.cookies.getCookie = () => "cy";
 
-  it('Sets the language to the value of the lng cookie if set', function () {
+    global.window.DI.analyticsGa4.trackers.PageViewTracker.init();
 
-    global.window.DI.cookies.getCookie = () => 'cy'
+    expected.page_view.language = "cy";
+    expect(mockSendData).to.have.been.calledWith(expected);
+  });
 
-    global.window.DI.analyticsGa4.trackers.PageViewTracker.init()
+  it("Sets the status_code to the value of the http status code if set", function () {
+    global.window.DI.httpStatusCode = 401;
 
-    expected.page_view.language = 'cy'
-    expect(mockSendData).to.have.been.calledWith(expected)
-  })
+    global.window.DI.analyticsGa4.trackers.PageViewTracker.init();
 
-  it('Sets the status_code to the value of the http status code if set', function () {
+    expected.page_view.status_code = 401;
+    expect(mockSendData).to.have.been.calledWith(expected);
+  });
 
-    global.window.DI.httpStatusCode = 401
+  it("Sets title, location, referrer and language to lowercase if they contain uppercase characters", function () {
+    global.document.title = "SOME-TITLE";
+    global.document.location.href = "/HREF";
+    global.document.referrer = "MOCKREFERRER";
+    global.window.DI.cookies.getCookie = () => "EN";
 
-    global.window.DI.analyticsGa4.trackers.PageViewTracker.init()
+    global.window.DI.analyticsGa4.trackers.PageViewTracker.init();
 
-    expected.page_view.status_code = 401
-    expect(mockSendData).to.have.been.calledWith(expected)
-  })
-
-  it('Sets title, location, referrer and language to lowercase if they contain uppercase characters', function () {
-
-    global.document.title = "SOME-TITLE"
-    global.document.location.href = "/HREF"
-    global.document.referrer = "MOCKREFERRER"
-    global.window.DI.cookies.getCookie = () => 'EN'
-
-    global.window.DI.analyticsGa4.trackers.PageViewTracker.init()
-
-    expect(mockSendData).to.have.been.calledWith(expected)
-  })
-})
+    expect(mockSendData).to.have.been.calledWith(expected);
+  });
+});
