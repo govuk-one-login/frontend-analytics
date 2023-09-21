@@ -9,7 +9,7 @@
   "scripts": {
     "copy-assets": "echo \"copying Design System assets into /assets folder\" && rm -rf assets && mkdir assets && copyfiles -u 4 node_modules/govuk-frontend/govuk/assets/**/** assets",
     "create-sass": "echo \"building CSS file from Design System and adding any local CSS\" && rm -rf assets/stylesheet && sass src/assets/stylesheet/styles.scss assets/stylesheet/application.css",
-    "create-js": "echo \"creating JavaScript\" && rm -rf assets/javascript && copyfiles -u 2 src/assets/javascript/**/** assets",
+    "create-js": "echo \"creating JavaScript\" && rm -rf assets/javascript && copyfiles -u 2 src/assets/javascript/**/** src/assets/javascript/**/**/** assets",
     "build": "npm run copy-assets && npm run create-js && npm run create-sass && nodemon app/index.js",
     "test:unit": "mocha -p --recursive \"test/**/**/**/**/**/*.test.ts\""
   },
