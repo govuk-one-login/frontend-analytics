@@ -19,7 +19,7 @@ i18next
 
 // add nunjucks support and configure the views folders
 const nunjucks = require("nunjucks");
-nunjucks.configure(["./app/views", "node_modules/govuk-frontend/"], {
+nunjucks.configure(["./views", "./node_modules/govuk-frontend/"], {
   autoescape: true,
   express: app,
 });
@@ -29,7 +29,7 @@ const port = 3000;
 // register the folder with the static assets with express
 // use a build script to copy the assets from govuk-frontend
 // into the assets folder
-app.use("/assets", express.static("assets"));
+app.use("/assets", express.static("./build/assets"));
 
 // Allow the app to use the internationalisation library
 
