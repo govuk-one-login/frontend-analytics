@@ -92,7 +92,7 @@ describe('NavigationTracker', () => {
           expect(consoleWarnSpy).to.be.calledWith("Missing ga4-data-navigation configuration properties. Expected: [text: string, type: string, external: string]")
         })
       })
-  
+
       describe('Type property is not an instance of "string"', () => {
         it('Does not send navigation event', () => {
           navigationElement.setAttribute('ga4-data-navigation', '{ "type": 5, "external": "external" }')
@@ -104,7 +104,7 @@ describe('NavigationTracker', () => {
           expect(consoleWarnSpy).to.be.calledWith("Missing ga4-data-navigation configuration properties. Expected: [text: string, type: string, external: string]")
         })
       })
-  
+
       describe('External property is not an instance of "string"', () => {
         it('Does not send navigation event', () => {
           navigationElement.setAttribute('ga4-data-navigation', '{ "type": "type", "external": true }')
@@ -160,7 +160,7 @@ describe('NavigationTracker', () => {
         const event = document.createEvent('CustomEvent')
         event.initEvent('click')
         navigationElement.dispatchEvent(event)
-        
+
         expect(mockSendData).to.have.been.calledWithExactly({
           event: 'event_data',
           event_data: {
