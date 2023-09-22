@@ -1,6 +1,6 @@
 {# DCMAW accounts · UA GTM-TK92W68 · GA4 GTM-KD86CMZ #}
 {% set GAcode %}
-  window.DI.appInit({uaContainerId: 'GTM-TK92W68', analyticsCookieDomain: 'localhost', isGa4Enabled: 'true', ga4ContainerId: 'GTM-KD86CMZ'})
+  window.DI.appInit({uaContainerId: 'GTM-TK92W68', analyticsCookieDomain: 'localhost', isGa4Enabled: true, ga4ContainerId: 'GTM-KD86CMZ'})
 {% endset %}
 
 {% extends "govuk/template.njk" %}
@@ -35,6 +35,9 @@
   <script src="/assets/javascript/analytics/cookies.js"></script>
   <script src="/assets/javascript/analytics/core.js"></script>
   <script src="/assets/javascript/analytics/loadAnalytics.js"></script>
+  <script src="/assets/javascript/analytics/ua/init.js"></script>
+  <script src="/assets/javascript/analytics/ga4/pageViewTracker.js"></script>
+  <script src="/assets/javascript/analytics/ga4/init.js"></script>
   <script src="/assets/javascript/app/init.js"></script>
   <script type="text/javascript">{{ GAcode | safe }}</script>
 {% endblock %}

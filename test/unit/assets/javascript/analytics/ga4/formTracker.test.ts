@@ -85,14 +85,14 @@ describe("FormTracker", () => {
 
     document.body.appendChild(formElement);
 
-    require("../../../src/assets/javascript/analytics/ga4/formTracker.js");
+    require("../../../../../../src/assets/javascript/analytics/ga4/formTracker.js");
   });
 
   afterEach(() => {
     document.body.removeChild(formElement);
     delete require.cache[
       require.resolve(
-        "../../../src/assets/javascript/analytics/ga4/formTracker",
+        "../../../../../../src/assets/javascript/analytics/ga4/formTracker",
       )
     ];
   });

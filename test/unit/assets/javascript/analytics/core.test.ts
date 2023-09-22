@@ -9,12 +9,12 @@ describe("Core", () => {
     global.window = {};
     window.dataLayer = [];
 
-    require("../../src/assets/javascript/analytics/core");
+    require("../../../../../src/assets/javascript/analytics/core");
   });
 
   afterEach(() => {
     delete require.cache[
-      require.resolve("../../src/assets/javascript/analytics/core")
+      require.resolve("../../../../../src/assets/javascript/analytics/core")
     ];
   });
 

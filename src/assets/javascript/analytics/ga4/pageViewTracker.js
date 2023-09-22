@@ -7,19 +7,19 @@ window.DI.analyticsGa4.trackers = window.DI.analyticsGa4.trackers || {};
 (function (trackers) {
   "use strict";
 
-  let PageViewTracker = {
+  var PageViewTracker = {
     init: function () {
-      const data = {
+      var data = {
         event: "page_view_ga4",
         page_view: {
           language: this.getLanguage(),
-          location: document.location.href,
+          location: this.getLocation(),
           organisations: "<OT1056>",
           primary_publishing_organisation:
             "government digital service - digital identity",
           status_code: this.getStatusCode(),
-          title: document.title,
-          referrer: document.referrer,
+          title: this.getTitle(),
+          referrer: this.getReferrer(),
           taxonomy_level1: "document checking application",
           taxonomy_level2: "pre cri",
         },
@@ -28,11 +28,23 @@ window.DI.analyticsGa4.trackers = window.DI.analyticsGa4.trackers || {};
     },
 
     getLanguage: function () {
-      return window.DI.cookies.getCookie("lng") ?? "en";
+      return (window.DI.cookies.getCookie("lng") ?? "en").toLowerCase();
     },
 
     getStatusCode: function () {
       return window.DI.httpStatusCode ?? 200;
+    },
+
+    getLocation: function () {
+      return document.location.href?.toLowerCase();
+    },
+
+    getTitle: function () {
+      return document.title?.toLowerCase();
+    },
+
+    getReferrer: function () {
+      return document.referrer?.toLowerCase();
     },
   };
 

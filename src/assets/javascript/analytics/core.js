@@ -5,9 +5,9 @@ window.DI = window.DI || {};
 (function (DI) {
   "use strict";
 
-  const core = {
+  var core = {
     load: function (containerId) {
-      const gtmScriptTag = document.createElement("script");
+      var gtmScriptTag = document.createElement("script");
       gtmScriptTag.type = "text/javascript";
       gtmScriptTag.setAttribute("async", "true");
       gtmScriptTag.setAttribute(

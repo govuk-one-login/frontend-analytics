@@ -5,19 +5,19 @@ window.DI = window.DI || {};
 (function (DI) {
   "use strict";
 
-  const COOKIES_PREFERENCES_SET = "cookies_preferences_set";
-  const cookiesAccepted = document.querySelector("#cookies-accepted");
-  const cookiesRejected = document.querySelector("#cookies-rejected");
-  const hideCookieBanner = document.querySelectorAll(".cookie-hide-button");
-  const cookieBannerContainer = document.querySelector(".govuk-cookie-banner");
-  const cookieBanner = document.querySelector("#cookies-banner-main");
-  const acceptCookies = document.querySelector('button[name="cookiesAccept"]');
-  const rejectCookies = document.querySelector('button[name="cookiesReject"]');
+  var COOKIES_PREFERENCES_SET = "cookies_preferences_set";
+  var cookiesAccepted = document.querySelector("#cookies-accepted");
+  var cookiesRejected = document.querySelector("#cookies-rejected");
+  var hideCookieBanner = document.querySelectorAll(".cookie-hide-button");
+  var cookieBannerContainer = document.querySelector(".govuk-cookie-banner");
+  var cookieBanner = document.querySelector("#cookies-banner-main");
+  var acceptCookies = document.querySelector('button[name="cookiesAccept"]');
+  var rejectCookies = document.querySelector('button[name="cookiesReject"]');
 
   function cookieBannerInit(domain) {
     if (typeof domain !== "string") {
       /* eslint-disable-next-line no-console */
-      console.warn(`Cookie banner cannot be initialised: domain is ${domain}`);
+      console.warn("Cookie banner cannot be initialised: domain is " + domain);
       return;
     }
 
@@ -37,7 +37,7 @@ window.DI = window.DI || {};
       }.bind(this),
     );
 
-    const hideButtons = Array.prototype.slice.call(hideCookieBanner);
+    var hideButtons = Array.prototype.slice.call(hideCookieBanner);
     hideButtons.forEach(function (element) {
       element.addEventListener(
         "click",
@@ -48,9 +48,7 @@ window.DI = window.DI || {};
       );
     });
 
-    const hasCookiesPolicy = window.DI.cookies.getCookie(
-      COOKIES_PREFERENCES_SET,
-    );
+    var hasCookiesPolicy = window.DI.cookies.getCookie(COOKIES_PREFERENCES_SET);
     if (!hasCookiesPolicy) {
       showElement(cookieBannerContainer);
     }
@@ -69,7 +67,7 @@ window.DI = window.DI || {};
     if (analyticsConsent === true) {
       showElement(cookiesAccepted);
 
-      let event;
+      var event;
       if (typeof window.CustomEvent === "function") {
         event = new window.CustomEvent("cookie-consent");
       } else {

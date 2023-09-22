@@ -7,8 +7,8 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
   "use strict";
 
   // container is an optional parameter used for unit tests
-  const init = function (container) {
-    const consentGiven = window.DI.cookies.hasConsentForAnalytics();
+  var init = function (container) {
+    var consentGiven = window.DI.cookies.hasConsentForAnalytics();
 
     if (consentGiven) {
       window.DI.core.load(window.DI.analytics.vars.ga4ContainerId);
@@ -16,18 +16,18 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
       initGa4GlobalTrackers();
       initGa4ElementTrackers(container ?? document);
     } else {
-      window.addEventListener("cookie-consent", () =>
-        window.DI.analyticsGa4.init(),
-      );
+      window.addEventListener("cookie-consent", function () {
+        return window.DI.analyticsGa4.init();
+      });
     }
   };
 
   // Initialise trackers for GA4 events which can be tracked at the global page level, such as page_view events
-  const initGa4GlobalTrackers = function () {
-    const trackers = window.DI.analyticsGa4.trackers;
-    for (const trackerName in trackers) {
+  var initGa4GlobalTrackers = function () {
+    var trackers = window.DI.analyticsGa4.trackers;
+    for (var trackerName in trackers) {
       if (Object.hasOwn(trackers, trackerName)) {
-        const tracker = trackers[trackerName];
+        var tracker = trackers[trackerName];
         if (typeof tracker.init === "function") {
           try {
             tracker.init();
@@ -44,12 +44,13 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
     }
   };
 
-  const getTrackingElements = function (document) {
-    const trackerSelector = "[ga4-trackers]";
-    const trackingElementsNodes = document.querySelectorAll(trackerSelector);
-    const trackingElements = [];
+  var getTrackingElements = function (document) {
+    var trackerSelector = "[ga4-trackers]";
+    var trackingElementsNodes = document.querySelectorAll(trackerSelector);
+    var trackingElements = [];
     // convert nodelist of trackers to array
-    for (const element of trackingElementsNodes) {
+    for (var i = 0; i < trackingElementsNodes.length; i++) {
+      var element = trackingElementsNodes[i];
       trackingElements.push(element);
     }
 
@@ -57,14 +58,14 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
   };
 
   // eg form-tracker to FormTracker
-  const kebabCaseToPascalCase = function (string) {
-    const camelCase = function (string) {
+  var kebabCaseToPascalCase = function (string) {
+    var camelCase = function (string) {
       return string.replace(/-([a-z])/g, function (g) {
         return g.charAt(1).toUpperCase();
       });
     };
 
-    const capitaliseFirstLetter = function (string) {
+    var capitaliseFirstLetter = function (string) {
       return string.charAt(0).toUpperCase() + string.slice(1);
     };
 
@@ -72,17 +73,19 @@ window.DI.analyticsGa4 = window.DI.analyticsGa4 || {};
   };
 
   // Initialise trackers for GA4 events which should be tracked on specific page elements, such as form_response events
-  const initGa4ElementTrackers = function (document) {
-    const elements = getTrackingElements(document);
+  var initGa4ElementTrackers = function (document) {
+    var elements = getTrackingElements(document);
 
-    for (const element of elements) {
-      const elementTrackers = element.getAttribute("ga4-trackers").split(" ");
+    for (var i = 0; i < elements.length; i++) {
+      var element = elements[i];
+      var elementTrackers = element.getAttribute("ga4-trackers").split(" ");
 
-      for (const elementTracker of elementTrackers) {
-        const trackerName = kebabCaseToPascalCase(elementTracker);
-        const trackers = window.DI.analyticsGa4.trackers;
+      for (var j = 0; j < elementTrackers.length; j++) {
+        var elementTracker = elementTrackers[j];
+        var trackerName = kebabCaseToPascalCase(elementTracker);
+        var trackers = window.DI.analyticsGa4.trackers;
         if (Object.hasOwn(trackers, trackerName)) {
-          const tracker = trackers[trackerName];
+          var tracker = trackers[trackerName];
           if (
             typeof tracker === "function" &&
             typeof tracker.prototype.init === "function"

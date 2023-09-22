@@ -8,14 +8,15 @@ window.DI.analytics.vars = window.DI.analytics.vars || {};
   "use strict";
 
   function isValid(containerId) {
-    return typeof containerId === "string" && containerId.startsWith("GTM-");
+    return typeof containerId === "string" && containerId.indexOf("GTM-") === 0;
   }
 
   function loadUa(uaContainerId) {
     if (!isValid(uaContainerId)) {
       /* eslint-disable-next-line no-console */
       console.warn(
-        `UA analytics will not be initialised: uaContainerId is ${uaContainerId}`,
+        "UA analytics will not be initialised: uaContainerId is " +
+          uaContainerId,
       );
       return;
     }
@@ -27,7 +28,8 @@ window.DI.analytics.vars = window.DI.analytics.vars || {};
     if (!isValid(ga4ContainerId)) {
       /* eslint-disable-next-line no-console */
       console.warn(
-        `GA4 analytics will not be initialised: ga4ContainerId is ${ga4ContainerId}`,
+        "GA4 analytics will not be initialised: ga4ContainerId is " +
+          ga4ContainerId,
       );
       return;
     }

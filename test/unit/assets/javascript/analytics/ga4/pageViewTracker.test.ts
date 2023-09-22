@@ -41,19 +41,19 @@ describe("PageViewTracker", () => {
           "government digital service - digital identity",
         status_code: 200,
         title: "some-title",
-        referrer: "mockReferrer",
+        referrer: "mockreferrer",
         taxonomy_level1: "document checking application",
         taxonomy_level2: "pre cri",
       },
     };
 
-    require("../../../src/assets/javascript/analytics/ga4/pageViewTracker");
+    require("../../../../../../src/assets/javascript/analytics/ga4/pageViewTracker");
   });
 
   afterEach(() => {
     delete require.cache[
       require.resolve(
-        "../../../src/assets/javascript/analytics/ga4/pageViewTracker",
+        "../../../../../../src/assets/javascript/analytics/ga4/pageViewTracker",
       )
     ];
   });
@@ -79,6 +79,17 @@ describe("PageViewTracker", () => {
     global.window.DI.analyticsGa4.trackers.PageViewTracker.init();
 
     expected.page_view.status_code = 401;
+    expect(mockSendData).to.have.been.calledWith(expected);
+  });
+
+  it("Sets title, location, referrer and language to lowercase if they contain uppercase characters", function () {
+    global.document.title = "SOME-TITLE";
+    global.document.location.href = "/HREF";
+    global.document.referrer = "MOCKREFERRER";
+    global.window.DI.cookies.getCookie = () => "EN";
+
+    global.window.DI.analyticsGa4.trackers.PageViewTracker.init();
+
     expect(mockSendData).to.have.been.calledWith(expected);
   });
 });

@@ -84,12 +84,14 @@ describe("Init", () => {
     mockLoad = sinon.stub(global.window.DI.core, "load");
     mockAddEventListener = sinon.stub(global.window, "addEventListener");
 
-    require("../../../src/assets/javascript/analytics/ga4/init");
+    require("../../../../../../src/assets/javascript/analytics/ga4/init");
   });
 
   afterEach(() => {
     delete require.cache[
-      require.resolve("../../../src/assets/javascript/analytics/ga4/init")
+      require.resolve(
+        "../../../../../../src/assets/javascript/analytics/ga4/init",
+      )
     ];
   });
 

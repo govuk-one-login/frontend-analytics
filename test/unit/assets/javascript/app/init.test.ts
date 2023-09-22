@@ -23,12 +23,12 @@ describe("Init", () => {
         loadAnalytics: () => events.push("init new analytics"),
       },
     };
-    require("../../src/assets/javascript/app/init");
+    require("../../../../../src/assets/javascript/app/init");
   });
 
   afterEach(() => {
     delete require.cache[
-      require.resolve("../../src/assets/javascript/app/init")
+      require.resolve("../../../../../src/assets/javascript/app/init")
     ];
   });
 
