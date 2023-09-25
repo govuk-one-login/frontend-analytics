@@ -12,8 +12,8 @@
     "create-js": "echo \"creating JavaScript\" && rm -rf assets/javascript && copyfiles -u 2 src/assets/javascript/**/** src/assets/javascript/**/**/** assets",
     "build": "npm run copy-assets && npm run create-js && npm run create-sass && nodemon app/index.js",
     "test:unit": "mocha -p --recursive \"test/**/*.test.ts\"",
-    "lint": "eslint .",
-    "lint": "eslint . --fix"
+    "lint:javascript": "eslint ./src/assets/javascript",
+    "lint:javascript:fix": "eslint ./src/assets/javascript --fix"
   },
   "repository": {
     "type": "git",
@@ -27,8 +27,8 @@
   "homepage": "https://github.com/alphagov/di-frontend-analytics#readme",
   "dependencies": {
     "copyfiles": "^2.4.1",
-    "eslint": "^8.45.0",
     "eslint-plugin-es5": "^1.5.0",
+    "esprima": "4.0.1",
     "express": "^4.18.2",
     "govuk-frontend": "^4.7.0",
     "i18next": "23.2.7",
@@ -38,6 +38,7 @@
   },
   "devDependencies": {
     "chai": "4.3.7",
+    "eslint": "^8.50.0",
     "jsdom": "22.1.0",
     "mocha": "10.2.0",
     "nodemon": "^3.0.1",

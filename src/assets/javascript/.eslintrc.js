@@ -1,6 +1,6 @@
 module.exports = {
     env: {
-        node: true,
+        browser: true,
     },
     plugins: ["es5"],
     extends: [

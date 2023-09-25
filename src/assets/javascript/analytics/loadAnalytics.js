@@ -1,5 +1,3 @@
-/* global window */
-
 window.DI = window.DI || {};
 window.DI.analytics = window.DI.analytics || {};
 window.DI.analytics.vars = window.DI.analytics.vars || {};

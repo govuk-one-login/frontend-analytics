@@ -1,4 +1,4 @@
-/* global document window dataLayer ga */
+/* global dataLayer ga */
 
 "use strict";
 

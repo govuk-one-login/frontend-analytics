@@ -1,5 +1,3 @@
-/* global document window */
-
 window.DI = window.DI || {};
 
 (function (DI) {

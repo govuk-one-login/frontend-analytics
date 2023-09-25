@@ -1,4 +1,4 @@
-/* global window document ga */
+/* global ga */
 
 window.DI = window.DI || {};
 window.DI.analyticsUa = window.DI.analyticsUa || {};
