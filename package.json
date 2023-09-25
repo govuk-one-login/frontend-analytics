@@ -9,7 +9,8 @@
   "scripts": {
     "copy-assets": "echo \"copying Design System assets into /assets folder\" && rm -rf assets && mkdir assets && copyfiles -u 4 node_modules/govuk-frontend/govuk/assets/**/** assets",
     "create-sass": "echo \"building CSS file from Design System and adding any local CSS\" && rm -rf assets/stylesheet && sass src/assets/stylesheet/styles.scss assets/stylesheet/application.css",
-    "create-js": "echo \"creating JavaScript\" && rm -rf assets/javascript && copyfiles -u 2 src/assets/javascript/**/** src/assets/javascript/**/**/** assets",
+    "bundle-js-analytics": "echo \"bundling analytics JavaScript\" && mkdir -p assets/javascript && uglifyjs src/assets/javascript/analytics/**/*.js src/assets/javascript/analytics/*.js -o assets/javascript/analytics.js",
+    "create-js": "echo \"creating JavaScript\" && rm -rf assets/javascript && npm run bundle-js-analytics && copyfiles -u 2 -e '**/analytics/**' src/assets/javascript/**/**/*.js src/assets/javascript/**/**/**/*.js assets",
     "build": "npm run copy-assets && npm run create-js && npm run create-sass && nodemon app/index.js",
     "test:unit": "mocha -p --recursive \"test/**/*.test.ts\""
   },
@@ -42,7 +43,8 @@
     "sinon": "15.2.0",
     "sinon-chai": "3.7.0",
     "ts-node": "10.9.1",
-    "typescript": "5.1.6"
+    "typescript": "5.1.6",
+    "uglify-js": "3.15.1"
   },
   "mocha": {
     "diff": true,
