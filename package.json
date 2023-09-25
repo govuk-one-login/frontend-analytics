@@ -11,7 +11,9 @@
     "create-sass": "echo \"building CSS file from Design System and adding any local CSS\" && rm -rf assets/stylesheet && sass src/assets/stylesheet/styles.scss assets/stylesheet/application.css",
     "create-js": "echo \"creating JavaScript\" && rm -rf assets/javascript && copyfiles -u 2 src/assets/javascript/**/** src/assets/javascript/**/**/** assets",
     "build": "npm run copy-assets && npm run create-js && npm run create-sass && nodemon app/index.js",
-    "test:unit": "mocha -p --recursive \"test/**/*.test.ts\""
+    "test:unit": "mocha -p --recursive \"test/**/*.test.ts\"",
+    "lint": "eslint .",
+    "lint": "eslint . --fix"
   },
   "repository": {
     "type": "git",
@@ -25,6 +27,8 @@
   "homepage": "https://github.com/alphagov/di-frontend-analytics#readme",
   "dependencies": {
     "copyfiles": "^2.4.1",
+    "eslint": "^8.45.0",
+    "eslint-plugin-es5": "^1.5.0",
     "express": "^4.18.2",
     "govuk-frontend": "^4.7.0",
     "i18next": "23.2.7",
