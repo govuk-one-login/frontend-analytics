@@ -7,7 +7,7 @@
     "test": "test"
   },
   "scripts": {
-    "bundle-js-analytics": "echo \"bundling analytics JavaScript\" && mkdir -p assets/javascript && uglifyjs src/assets/javascript/analytics/**/*.js src/assets/javascript/analytics/*.js -o assets/javascript/analytics.js",
+    "bundle-js-analytics": "echo \"bundling analytics JavaScript\" && mkdir -p dist/assets/javascript && uglifyjs src/assets/javascript/analytics/**/*.js src/assets/javascript/analytics/*.js -o dist/assets/javascript/analytics.js",
     "test:unit": "mocha -p --recursive \"test/**/*.test.ts\""
   },
   "repository": {
