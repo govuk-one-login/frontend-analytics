@@ -1,0 +1,50 @@
+{
+  "name": "di-frontend-analytics-test",
+  "version": "0.1.0",
+  "description": "",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "scripts": {
+    "copy-assets": "echo \"copying Design System assets into /build folder\" && rm -rf build && mkdir build && copyfiles -u 4 ../node_modules/govuk-frontend/govuk/assets/**/** build",
+    "create-sass": "echo \\\"building CSS file from Design System and adding any local CSS\\\" && rm -rf build/stylesheet && sass assets/stylesheet/styles.scss build/assets/stylesheet/application.css",
+    "create-js": "echo \"creating JavaScript\" && rm -rf build/javascript && copyfiles -u 2 ../src/assets/javascript/**/** ../src/assets/javascript/**/**/** build",
+    "build": "npm run copy-assets && npm run create-js && npm run create-sass",
+    "dev": "nodemon app/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/alphagov/di-frontend-analytics.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/alphagov/di-frontend-analytics/issues"
+  },
+  "homepage": "https://github.com/alphagov/di-frontend-analytics#readme",
+  "dependencies": {
+    "copyfiles": "2.4.1",
+    "sass": "1.66.1",
+    "express": "4.18.2",
+    "govuk-frontend": "4.7.0",
+    "i18next": "23.2.7",
+    "i18next-fs-backend": "2.1.2",
+    "i18next-http-middleware": "3.3.1",
+    "nunjucks": "3.2.4",
+    "nodemon": "3.0.1"
+  },
+  "mocha": {
+    "diff": true,
+    "extension": [
+      "js",
+      "ts"
+    ],
+    "timeout": 20000,
+    "recursive": true,
+    "require": [
+      "ts-node/register"
+    ],
+    "exit": true
+  }
+}

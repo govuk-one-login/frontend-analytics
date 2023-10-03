@@ -134,4 +134,4 @@ yarn.lock
 .idea
 
 # built assets folder
-/assets/
+app/build/
